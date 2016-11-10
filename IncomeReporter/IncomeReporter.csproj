@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{88DF4986-8856-46D8-8991-838157CB81F9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Challenge</RootNamespace>
+    <AssemblyName>AvenueCodeChallenge</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\PaymentCalculatorSuite.cs" />
+    <Compile Include="Src\PaymentCalculator.cs" />
+    <Compile Include="Src\TerminalView\UserPrompt.cs" />
+    <Compile Include="Test\TerminalView\UserPromptSuite.cs" />
+    <Compile Include="Src\Deductions\FlatRateDeductionRule.cs" />
+    <Compile Include="Src\Deductions\DeductionBracket.cs" />
+    <Compile Include="Src\Deductions\IDeductionRule.cs" />
+    <Compile Include="Src\Deductions\TieredDeductionRule.cs" />
+    <Compile Include="Test\Deductions\TieredDeductionRuleSuite.cs" />
+    <Compile Include="Test\Deductions\FlatRateDeductionRuleSuite.cs" />
+    <Compile Include="Src\Reporting\IncomeReport.cs" />
+    <Compile Include="Src\Reporting\IncomeReportGenerator.cs" />
+    <Compile Include="Src\Reporting\LineItem.cs" />
+    <Compile Include="Test\Reporting\IncomeReportGeneratorSuite.cs" />
+    <Compile Include="Test\Reporting\IncomeReportSuite.cs" />
+    <Compile Include="Src\Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Test\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\TerminalView\" />
+    <Folder Include="Test\TerminalView\" />
+    <Folder Include="Src\Deductions\" />
+    <Folder Include="Test\Deductions\" />
+    <Folder Include="Src\Reporting\" />
+    <Folder Include="Test\Reporting\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
