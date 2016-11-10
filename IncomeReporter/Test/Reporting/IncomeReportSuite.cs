@@ -46,10 +46,5 @@ Net Amount: $400.00";
 
 			Assert.AreEqual(expectedReport, report.ToString());
 		}
-
-		[Test]
-		public void ToString_WithNoDeductions_OmitsDeductionsSection()
-		{
-		}
 	}
 }

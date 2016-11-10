@@ -8,29 +8,33 @@ namespace Tests.Reporting.ItemizedIncomeCalculatorSuite
 	[TestFixture]
 	public class GivenAppropriateInputs
 	{
-		[Test]
-		public void GenerateReport_IncludesGrossPay()
+		private IncomeReportGenerator generator;
+		[SetUp]
+		public void Init()
 		{
-			var generator = new IncomeReportGenerator(new List<IDeductionRule>());
-			// note: add timesheet in the future
+			var deductionRule = new FlatRateDeductionRule("TestDeduction", 0.25m);
+			generator = new IncomeReportGenerator(new List<IDeductionRule> { deductionRule });
+		}
+
+		private IncomeReport GenerateReport()
+		{
 			var hourlyRate = 10m;
 			var hoursWorked = 40m;
 
-			var report = generator.GenerateReport("dummy location", hourlyRate, hoursWorked);
+			return generator.GenerateReport("dummy location", hoursWorked, hourlyRate);
+		}
+
+		[Test]
+		public void GenerateReport_IncludesGrossPay()
+		{
+			var report = GenerateReport();
 			Assert.AreEqual(400m, report.Gross);
 		}
 
 		[Test]
 		public void GenerateReport_IncludesDeductions()
 		{
-			var deductionRule = new FlatRateDeductionRule("TestDeduction", 0.25m);
-
-			var generator = new IncomeReportGenerator(new List<IDeductionRule> { deductionRule });
-
-			var hourlyRate = 10m;
-			var hoursWorked = 40m;
-
-			var report = generator.GenerateReport("dummy location", hourlyRate, hoursWorked);
+			var report = GenerateReport();
 
 			var deductions = report.Deductions;
 			Assert.AreEqual(1, deductions.Count);
@@ -41,16 +45,17 @@ namespace Tests.Reporting.ItemizedIncomeCalculatorSuite
 		[Test]
 		public void GenerateReport_IncludesNet()
 		{
-			var deductionRule = new FlatRateDeductionRule("TestDeduction", 0.25m);
-
-			var generator = new IncomeReportGenerator(new List<IDeductionRule> { deductionRule });
-
-			var hourlyRate = 10m;
-			var hoursWorked = 40m;
-
-			var report = generator.GenerateReport("dummy location", hourlyRate, hoursWorked);
+			var report = GenerateReport();
 
 			Assert.AreEqual(300m, report.Net);
+		}
+
+		[Test]
+		public void GenerateReport_IncludesLocation()
+		{
+			var report = GenerateReport();
+
+			Assert.AreEqual("dummy location", report.Location);
 		}
 	}
 }

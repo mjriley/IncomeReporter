@@ -41,7 +41,7 @@ namespace Challenge
 			decimal hourlyRate = decimal.Parse(ratePrompt.Execute());
 
 			var locationPrompt = new UserPrompt("Please enter the employee's location", CreateLocationValidator(deductionsToLocationMap.Keys));
-			string location = locationPrompt.Execute();
+			string location = locationPrompt.Execute().ToLower();
 
 			var deductionRules = deductionsToLocationMap[location];
 
